@@ -2,7 +2,7 @@ package model;
 
 import java.awt.*;
 
-public class Wall extends CollisionObject {
+public class Wall extends CollisionObject implements java.io.Serializable {
     public Wall(int x, int y) {
         super(x,y);
     }

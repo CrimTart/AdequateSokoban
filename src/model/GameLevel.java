@@ -5,7 +5,7 @@ import java.util.Set;
 
 //A container for all GameObjects of a given level. Filled with data from a file by LevelLoader.
 
-public class GameLevel {
+public class GameLevel implements java.io.Serializable {
     private int number;
     private Set<Wall> walls;
     private Set<Box> boxes;

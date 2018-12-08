@@ -4,7 +4,7 @@ import java.awt.*;
 
 //Every possible object in a game. Should always occupy one cell (size determined in Model), but inner size/alignment can be changed in implementations.
 
-public abstract class GameObject {
+public abstract class GameObject implements java.io.Serializable {
     private int x, y, width, height;
 
     public GameObject(int x, int y) {

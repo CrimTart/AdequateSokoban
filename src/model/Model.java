@@ -2,6 +2,7 @@ package model;
 
 import controller.GameEventListener;
 
+import java.io.*;
 import java.nio.file.Paths;
 
 //Main model class containing all internal game logic, such as starting levels, checking collisions, etc.
@@ -133,10 +134,36 @@ public class Model {
     }
 
     public void saveGame() {
-
+        try {
+            String path = Paths.get(".", "/src/resources/save.txt").toString();
+            FileOutputStream fileOut = new FileOutputStream(path);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(gameLevel);
+            out.flush();
+            out.close();
+            fileOut.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void loadGame() {
-
+        GameLevel loaded;
+        try {
+            String path = Paths.get(".", "/src/resources/save.txt").toString();
+            FileInputStream fileIn = new FileInputStream(path);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            loaded = (GameLevel)in.readObject();
+            this.gameLevel = loaded;
+            this.currentLevel = loaded.getNumber();
+            in.close();
+            fileIn.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        } catch (ClassNotFoundException c) {
+            System.out.println("GameLevel class not found!");
+            c.printStackTrace();
+        }
     }
 }

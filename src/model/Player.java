@@ -2,7 +2,7 @@ package model;
 
 import java.awt.*;
 
-public class Player extends CollisionObject implements Movable {
+public class Player extends CollisionObject implements Movable, java.io.Serializable {
     public Player(int x, int y) {
         super(x, y);
     }

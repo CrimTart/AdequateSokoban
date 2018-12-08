@@ -4,7 +4,7 @@ import java.awt.*;
 
 //All bases must be filled with boxes to complete the level.
 
-public class Base extends GameObject{
+public class Base extends GameObject implements java.io.Serializable {
     public Base(int x, int y){
         super(x,y);
         setWidth(Model.FIELD_CELL_SIZE / 10);
