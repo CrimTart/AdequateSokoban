@@ -1,6 +1,7 @@
 package model;
 
 //All the objects that can collide (don't allow other such objects to pass through).
+
 public abstract class CollisionObject extends GameObject{
     public CollisionObject(int x, int y){
         super(x,y);

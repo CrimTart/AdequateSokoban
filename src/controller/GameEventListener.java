@@ -7,4 +7,7 @@ public interface GameEventListener {
     void restart();
     void startNextLevel();
     void levelCompleted(int level);
+    void showHelpDialog();
+    void saveGame();
+    void loadGame();
 }

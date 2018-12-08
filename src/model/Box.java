@@ -3,6 +3,7 @@ package model;
 import java.awt.*;
 
 //All bases must be filled with boxes to complete the level.
+
 public class Box extends CollisionObject implements Movable {
     public Box(int x, int y) {
         super(x, y);

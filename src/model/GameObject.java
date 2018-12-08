@@ -3,6 +3,7 @@ package model;
 import java.awt.*;
 
 //Every possible object in a game. Should always occupy one cell (size determined in Model), but inner size/alignment can be changed in implementations.
+
 public abstract class GameObject {
     private int x, y, width, height;
 

@@ -9,6 +9,7 @@ import java.util.Set;
 
 //Reads data from a given file and parses it to create a next GameLevel object.
 //Example file is provided in resources package and contains 60 levels. After completing all of them goes back to level 1.
+
 public class LevelLoader {
     private Path levels;
 
@@ -66,6 +67,6 @@ public class LevelLoader {
         catch (IOException e) {
             System.out.println("Error reading file");
         }
-        return new GameLevel(walls, boxes, bases, player);
+        return new GameLevel(level, walls, boxes, bases, player);
     }
 }

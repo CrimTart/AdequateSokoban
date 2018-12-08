@@ -37,6 +37,19 @@ public class Controller implements GameEventListener {
         view.completed(level);
     }
 
+    public void showHelpDialog() {
+        view.showHelpDialog();
+    }
+
+    public void saveGame() {
+        model.saveGame();
+    }
+
+    public void loadGame() {
+        model.loadGame();
+        view.update();
+    }
+
     public static void main(String[] args) {
         Controller controller = new Controller();
     }

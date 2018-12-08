@@ -26,7 +26,7 @@ public class Field extends JPanel {
 
     public void paint(Graphics g) {
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, 500, 500);
+        g.fillRect(0, 0, view.getWidth(), view.getHeight());
 
         Set<GameObject> gameObjectSet = view.getGameObjects().getAll();
 
@@ -55,6 +55,15 @@ public class Field extends JPanel {
                     break;
                 case (KeyEvent.VK_R):
                     eventListener.restart();
+                    break;
+                case (KeyEvent.VK_F1):
+                    eventListener.showHelpDialog();
+                    break;
+                case (KeyEvent.VK_F5):
+                    eventListener.saveGame();
+                    break;
+                case (KeyEvent.VK_F8):
+                    eventListener.loadGame();
                     break;
             }
         }

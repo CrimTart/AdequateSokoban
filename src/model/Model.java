@@ -5,6 +5,7 @@ import controller.GameEventListener;
 import java.nio.file.Paths;
 
 //Main model class containing all internal game logic, such as starting levels, checking collisions, etc.
+
 public class Model {
     public static final int FIELD_CELL_SIZE = 20;
     private GameEventListener eventListener;
@@ -129,5 +130,13 @@ public class Model {
             }
         }
         if (yes) eventListener.levelCompleted(currentLevel);
+    }
+
+    public void saveGame() {
+
+    }
+
+    public void loadGame() {
+
     }
 }

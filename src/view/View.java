@@ -43,4 +43,7 @@ public class View extends JFrame {
         controller.startNextLevel();
     }
 
+    public void showHelpDialog() {
+        JOptionPane.showMessageDialog(null, "Movement: Arrow keys\nRestart level: R\nSave Game: F5\nLoad Game: F8", "Controls", JOptionPane.INFORMATION_MESSAGE);
+    }
 }
