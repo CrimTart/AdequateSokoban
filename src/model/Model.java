@@ -13,7 +13,7 @@ public class Model {
     private GameLevel gameLevel;
     private int currentLevel = 1;
 
-    private LevelLoader levelLoader = new LevelLoader(Paths.get(".", "/src/resources/levels.txt"));
+    private LevelLoader levelLoader = new LevelLoader(Paths.get(".", "/resources/levels.txt"));
 
     public void setEventListener(GameEventListener eventListener) {
         this.eventListener = eventListener;
@@ -135,7 +135,7 @@ public class Model {
 
     public void saveGame() {
         try {
-            String path = Paths.get(".", "/src/resources/save.txt").toString();
+            String path = Paths.get(".", "/resources/save.txt").toString();
             FileOutputStream fileOut = new FileOutputStream(path);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(gameLevel);
@@ -151,7 +151,7 @@ public class Model {
     public void loadGame() {
         GameLevel loaded;
         try {
-            String path = Paths.get(".", "/src/resources/save.txt").toString();
+            String path = Paths.get(".", "/resources/save.txt").toString();
             FileInputStream fileIn = new FileInputStream(path);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             loaded = (GameLevel)in.readObject();
