@@ -4,16 +4,21 @@ import controller.GameEventListener;
 
 import java.io.*;
 import java.nio.file.Paths;
+import java.util.ArrayDeque;
+import java.util.HashSet;
+import java.util.Set;
 
 //Main model class containing all internal game logic, such as starting levels, checking collisions, etc.
 
 public class Model {
     public static final int FIELD_CELL_SIZE = 20;
+    public static final int SAVED_STATES_AMOUNT = 15;
     private GameEventListener eventListener;
     private GameLevel gameLevel;
     private int currentLevel = 1;
 
     private LevelLoader levelLoader = new LevelLoader(Paths.get(".", "/resources/levels.txt"));
+    private ArrayDeque<GameLevel> previousStates = new ArrayDeque<>();
 
     public void setEventListener(GameEventListener eventListener) {
         this.eventListener = eventListener;
@@ -21,6 +26,14 @@ public class Model {
 
     public GameLevel getGameLevel() {
         return gameLevel;
+    }
+
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public int getSteps() {
+        return gameLevel.getSteps();
     }
 
     public void startLevel(int level) {
@@ -34,15 +47,19 @@ public class Model {
     public void startNextLevel() {
         currentLevel = currentLevel + 1;
         startLevel(currentLevel);
+        gameLevel.setSteps(0);
     }
 
     public void move(Direction direction) {
+        previousStates.push(currentState());
         Player player = gameLevel.getPlayer();
 
         if (checkWallCollision(player, direction)) {
+            previousStates.pop();
             return;
         }
         if (checkBoxCollision(direction)){
+            previousStates.pop();
             return;
         }
 
@@ -59,7 +76,26 @@ public class Model {
             case DOWN:
                 player.move(0, FIELD_CELL_SIZE);
         }
+
+        gameLevel.setSteps(gameLevel.getSteps() + 1);
+        if (previousStates.size() > SAVED_STATES_AMOUNT)
+            previousStates.pollLast();
         checkCompletion();
+    }
+
+    public GameLevel currentState() {
+        Set<Wall> walls = new HashSet<>();
+        Set<Box> boxes = new HashSet<>();
+        Set<Base> bases = new HashSet<>();
+        Player player = new Player(gameLevel.getPlayer().getX(), gameLevel.getPlayer().getY());
+        for (Wall w : gameLevel.getWalls()) {walls.add(new Wall(w.getX(), w.getY()));}
+        for (Box bo : gameLevel.getBoxes()) {boxes.add(new Box(bo.getX(), bo.getY()));}
+        for (Base ba : gameLevel.getBases()) {bases.add(new Base(ba.getX(), ba.getY()));}
+        return new GameLevel(gameLevel.getNumber(), gameLevel.getSteps(), walls, boxes, bases, player);
+    }
+
+    public void previousStep() {
+        if (!previousStates.isEmpty()) gameLevel = previousStates.pop();
     }
 
     public boolean checkWallCollision(CollisionObject collisionObject, Direction direction) {
@@ -88,10 +124,12 @@ public class Model {
         if (stopped instanceof Box) {
             Box stoppedBox = (Box)stopped;
 
+            //Can't move if box is up against a wall
             if (checkWallCollision(stoppedBox, direction)) {
                 return true;
             }
 
+            //Can't move more than one box at a time
             for (Box box : gameLevel.getBoxes()){
                 if(stoppedBox.hasCollided(box, direction)) {
                     return true;
@@ -112,7 +150,6 @@ public class Model {
                     stoppedBox.move(0, FIELD_CELL_SIZE);
             }
         }
-
         return false;
     }
 
@@ -149,6 +186,7 @@ public class Model {
     }
 
     public void loadGame() {
+        previousStates.clear();
         GameLevel loaded;
         try {
             String path = Paths.get(".", "/resources/save.txt").toString();

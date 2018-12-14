@@ -50,11 +50,24 @@ public class Controller implements GameEventListener {
         view.update();
     }
 
+    public void previousStep() {
+        model.previousStep();
+        view.update();
+    }
+
     public static void main(String[] args) {
         Controller controller = new Controller();
     }
 
     public GameLevel getGameObjects() {
         return model.getGameLevel();
+    }
+
+    public int getCurrentLevel () {
+        return model.getCurrentLevel();
+    }
+
+    public int getSteps() {
+        return model.getSteps();
     }
 }

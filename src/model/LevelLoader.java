@@ -67,6 +67,6 @@ public class LevelLoader {
         catch (IOException e) {
             System.out.println("Error reading file");
         }
-        return new GameLevel(level, walls, boxes, bases, player);
+        return new GameLevel(level, 0, walls, boxes, bases, player);
     }
 }

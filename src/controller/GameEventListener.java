@@ -10,4 +10,5 @@ public interface GameEventListener {
     void showHelpDialog();
     void saveGame();
     void loadGame();
+    void previousStep();
 }
