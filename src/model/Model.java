@@ -17,7 +17,7 @@ public class Model {
     private GameLevel gameLevel;
     private int currentLevel = 1;
 
-    private LevelLoader levelLoader = new LevelLoader(getClass().getClassLoader().getResourceAsStream("levels.txt"));
+    private LevelLoader levelLoader = new LevelLoader("levels.txt");
     private ArrayDeque<GameLevel> previousStates = new ArrayDeque<>();
 
     public void setEventListener(GameEventListener eventListener) {

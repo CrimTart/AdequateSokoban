@@ -8,20 +8,22 @@ import java.util.Set;
 //Example file is provided in resources package and contains 60 levels. After completing all of them goes back to level 1.
 
 public class LevelLoader {
-    private InputStream levels;
+    private String levels;
 
-    public LevelLoader(InputStream levels) {
+    public LevelLoader(String levels) {
         this.levels = levels;
     }
 
     public GameLevel getLevel(int level) {
+        InputStream levelstream = getClass().getClassLoader().getResourceAsStream(levels);
+        BufferedReader reader;
         if(level>60) level %= 60;
         Set<Box> boxes = new HashSet<>();
         Set<Wall> walls = new HashSet<>();
         Set<Base> bases = new HashSet<>();
         Player player = new Player(0,0);
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(levels));
+            reader = new BufferedReader(new InputStreamReader(levelstream));
             while (true) {
                 String input = reader.readLine();
                 if (("Maze: " + level).equals(input))
