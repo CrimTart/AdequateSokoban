@@ -7,8 +7,8 @@ import java.awt.*;
 public class Base extends GameObject implements java.io.Serializable {
     public Base(int x, int y){
         super(x,y);
-        setWidth(Model.FIELD_CELL_SIZE / 10);
-        setHeight(Model.FIELD_CELL_SIZE / 10);
+        setWidth(Model.FIELD_CELL_SIZE / 10 + 1);
+        setHeight(Model.FIELD_CELL_SIZE / 10 + 1);
     }
 
     @Override
