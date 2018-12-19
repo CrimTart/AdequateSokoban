@@ -10,8 +10,8 @@ public abstract class GameObject implements java.io.Serializable {
     public GameObject(int x, int y) {
         this.x = x;
         this.y = y;
-        this.width = Model.FIELD_CELL_SIZE;
-        this.height = Model.FIELD_CELL_SIZE;
+        this.width = Model.FIELD_CELL_SIZE - 1;
+        this.height = Model.FIELD_CELL_SIZE - 1;
     }
 
     public GameObject(int x, int y, int width, int height) {
