@@ -22,6 +22,5 @@ public class Box extends CollisionObject implements Movable, java.io.Serializabl
         int leftUpperCornerY = getY() - getHeight() / 2;
 
         graphics.drawRect(leftUpperCornerX, leftUpperCornerY, getWidth(), getHeight());
-        graphics.fillRect(leftUpperCornerX, leftUpperCornerY, getWidth(), getHeight());
     }
 }

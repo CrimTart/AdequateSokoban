@@ -48,6 +48,7 @@ public class Model {
         currentLevel = currentLevel + 1;
         startLevel(currentLevel);
         gameLevel.setSteps(0);
+        previousStates.clear();
     }
 
     public void move(Direction direction) {

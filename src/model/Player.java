@@ -15,7 +15,7 @@ public class Player extends CollisionObject implements Movable, java.io.Serializ
 
     @Override
     public void draw(Graphics graphics) {
-        graphics.setColor(Color.RED);
+        graphics.setColor(Color.ORANGE);
 
         int leftUpperCornerX = getX() - getWidth() / 2;
         int leftUpperCornerY = getY() - getHeight() / 2;
