@@ -17,7 +17,7 @@ public class Model {
     private GameLevel gameLevel;
     private int currentLevel = 1;
 
-    private LevelLoader levelLoader = new LevelLoader(getClass().getClassLoader().getResource("levels.txt").getPath());
+    private LevelLoader levelLoader = new LevelLoader(getClass().getClassLoader().getResourceAsStream("levels.txt"));
     private ArrayDeque<GameLevel> previousStates = new ArrayDeque<>();
 
     public void setEventListener(GameEventListener eventListener) {
@@ -172,7 +172,8 @@ public class Model {
 
     public void saveGame() {
         try {
-            String path = getClass().getClassLoader().getResource("save.txt").getPath();
+            String workdir = new File(Model.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getAbsolutePath();
+            String path = Paths.get(workdir, "save.txt").toString();
             FileOutputStream fileOut = new FileOutputStream(path);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(gameLevel);
@@ -189,7 +190,8 @@ public class Model {
         previousStates.clear();
         GameLevel loaded;
         try {
-            String path = getClass().getClassLoader().getResource("save.txt").getPath();
+            String workdir = new File(Model.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getAbsolutePath();
+            String path = Paths.get(workdir, "save.txt").toString();
             FileInputStream fileIn = new FileInputStream(path);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             loaded = (GameLevel)in.readObject();

@@ -1,9 +1,6 @@
 package model;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Path;
+import java.io.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,10 +8,10 @@ import java.util.Set;
 //Example file is provided in resources package and contains 60 levels. After completing all of them goes back to level 1.
 
 public class LevelLoader {
-    private String levelsPath;
+    private InputStream levels;
 
-    public LevelLoader(String levelsPath) {
-        this.levelsPath = levelsPath;
+    public LevelLoader(InputStream levels) {
+        this.levels = levels;
     }
 
     public GameLevel getLevel(int level) {
@@ -24,7 +21,7 @@ public class LevelLoader {
         Set<Base> bases = new HashSet<>();
         Player player = new Player(0,0);
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(levelsPath));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(levels));
             while (true) {
                 String input = reader.readLine();
                 if (("Maze: " + level).equals(input))
