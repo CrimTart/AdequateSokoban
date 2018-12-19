@@ -11,10 +11,10 @@ import java.util.Set;
 //Example file is provided in resources package and contains 60 levels. After completing all of them goes back to level 1.
 
 public class LevelLoader {
-    private Path levels;
+    private String levelsPath;
 
-    public LevelLoader(Path levels) {
-        this.levels = levels;
+    public LevelLoader(String levelsPath) {
+        this.levelsPath = levelsPath;
     }
 
     public GameLevel getLevel(int level) {
@@ -24,7 +24,7 @@ public class LevelLoader {
         Set<Base> bases = new HashSet<>();
         Player player = new Player(0,0);
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(levels.toString()));
+            BufferedReader reader = new BufferedReader(new FileReader(levelsPath));
             while (true) {
                 String input = reader.readLine();
                 if (("Maze: " + level).equals(input))

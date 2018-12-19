@@ -17,7 +17,7 @@ public class Model {
     private GameLevel gameLevel;
     private int currentLevel = 1;
 
-    private LevelLoader levelLoader = new LevelLoader(Paths.get(".", "/resources/levels.txt"));
+    private LevelLoader levelLoader = new LevelLoader(getClass().getClassLoader().getResource("levels.txt").getPath());
     private ArrayDeque<GameLevel> previousStates = new ArrayDeque<>();
 
     public void setEventListener(GameEventListener eventListener) {
@@ -172,7 +172,7 @@ public class Model {
 
     public void saveGame() {
         try {
-            String path = Paths.get(".", "/resources/save.txt").toString();
+            String path = getClass().getClassLoader().getResource("save.txt").getPath();
             FileOutputStream fileOut = new FileOutputStream(path);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(gameLevel);
@@ -180,7 +180,7 @@ public class Model {
             out.close();
             fileOut.close();
         }
-        catch (IOException e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -189,7 +189,7 @@ public class Model {
         previousStates.clear();
         GameLevel loaded;
         try {
-            String path = Paths.get(".", "/resources/save.txt").toString();
+            String path = getClass().getClassLoader().getResource("save.txt").getPath();
             FileInputStream fileIn = new FileInputStream(path);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             loaded = (GameLevel)in.readObject();
@@ -197,11 +197,13 @@ public class Model {
             this.currentLevel = loaded.getNumber();
             in.close();
             fileIn.close();
-        } catch (IOException i) {
-            i.printStackTrace();
-        } catch (ClassNotFoundException c) {
+        }
+        catch (ClassNotFoundException c) {
             System.out.println("GameLevel class not found!");
             c.printStackTrace();
+        }
+        catch (Exception i) {
+            i.printStackTrace();
         }
     }
 }
